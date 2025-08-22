@@ -392,7 +392,7 @@ When spawning research sub-tasks:
    - What information to extract
    - Expected output format
 4. **Be EXTREMELY specific about directories**:
-   - Never use generic terms like "UI" when you mean "WUI"
+   - Never use generic terms
    - Include the full path context in your prompts
 5. **Specify read-only tools** to use
 6. **Request specific file:line references** in responses
