@@ -4,6 +4,11 @@
 
 This specification documents common issues, debugging approaches, and gotchas that developers encounter when deploying and integrating with Gaia AI agents. These are real-world problems not covered in standard documentation.
 
+**Related Documentation:**
+- [Troubleshooting](https://docs.gaianet.ai/getting-started/troubleshooting/) - Official troubleshooting guide
+- [FAQs](https://docs.gaianet.ai/faqs) - Frequently asked questions
+- [System Requirements](https://docs.gaianet.ai/getting-started/system-requirements/) - Prerequisites and compatibility
+
 ## Installation and Initialization Issues
 
 ### Download Failures

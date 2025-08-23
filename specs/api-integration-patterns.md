@@ -4,6 +4,11 @@
 
 Gaia provides OpenAI-compatible APIs with unique characteristics that require specific integration patterns. This specification covers practical integration approaches, authentication patterns, and handling of Gaia-specific behaviors.
 
+**Related Documentation:**
+- [API Reference](https://docs.gaianet.ai/getting-started/api-reference) - Complete API endpoint documentation
+- [Authentication](https://docs.gaianet.ai/getting-started/authentication/) - API key setup and management
+- [Agent Integrations & Plugins](https://docs.gaianet.ai/agent-integrations) - Integration examples
+
 ## Authentication Patterns
 
 ### Bearer Token Authentication

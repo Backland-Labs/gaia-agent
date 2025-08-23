@@ -4,6 +4,11 @@
 
 Deploying AI agents on Gaia introduces unique security and privacy challenges due to decentralized architecture, multiple network endpoints, and handling of potentially sensitive data. This specification provides comprehensive security guidance for production deployments.
 
+**Related Documentation:**
+- [Authentication](https://docs.gaianet.ai/getting-started/authentication/) - API key management and security
+- [Domain Operator Guide](https://docs.gaianet.ai/domain-operator-guide) - Network security considerations
+- [FAQs](https://docs.gaianet.ai/faqs) - Data privacy and compliance questions
+
 ## Network Security
 
 ### Port Exposure and Access Control

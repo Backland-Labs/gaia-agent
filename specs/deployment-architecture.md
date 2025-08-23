@@ -4,6 +4,11 @@
 
 Gaia provides a decentralized AI infrastructure for deploying intelligent agents with integrated knowledge bases. This specification covers the technical architecture and deployment patterns critical for successful agent deployment.
 
+**Related Documentation:**
+- [Quick Start Guide](https://docs.gaianet.ai/getting-started/quick-start/) - Basic deployment walkthrough
+- [System Requirements](https://docs.gaianet.ai/getting-started/system-requirements/) - Hardware and OS requirements
+- [Advanced Deployment Options](https://docs.gaianet.ai/category/advanced-deployment-options) - Advanced configuration patterns
+
 ## Core Architecture Components
 
 ### Runtime Environment
@@ -30,6 +35,8 @@ curl -sSfL 'https://github.com/GaiaNet-AI/gaianet-node/releases/latest/download/
 gaianet init
 gaianet start
 ```
+
+**Reference:** [Installation Guide](https://docs.gaianet.ai/getting-started/install/) | [CLI Options](https://docs.gaianet.ai/getting-started/cli-options/)
 
 **Use Cases:**
 - Development environments
@@ -58,10 +65,14 @@ https://your-subdomain.gaia.domains/v1/chat/completions
 - SSL certificate management handled automatically
 - Domain availability validation
 
+**Reference:** [Domain Operator Guide](https://docs.gaianet.ai/domain-operator-guide) | [Registration](https://docs.gaianet.ai/getting-started/register/)
+
 ### Knowledge-Base Integrated Pattern
 - Custom embedding models for domain-specific knowledge
 - Vector database pre-population strategies
 - RAG policy configuration for retrieval optimization
+
+**Reference:** [Knowledge Bases](https://docs.gaianet.ai/knowledge-bases) | [Customizing Your Node](https://docs.gaianet.ai/getting-started/customize/)
 
 ## Critical Architecture Decisions
 

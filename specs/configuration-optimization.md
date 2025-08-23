@@ -4,6 +4,12 @@
 
 Gaia nodes require careful configuration tuning to achieve optimal performance for specific use cases. This specification provides actionable guidance for configuration optimization, performance tuning, and resource management.
 
+**Related Documentation:**
+- [Customizing Your Gaia Node](https://docs.gaianet.ai/getting-started/customize/) - Configuration parameters and options
+- [CLI Options](https://docs.gaianet.ai/getting-started/cli-options/) - Command-line configuration
+- [System Requirements](https://docs.gaianet.ai/getting-started/system-requirements/) - Hardware recommendations
+- [Node Operators](https://docs.gaianet.ai/node-operators) - Advanced node management
+
 ## Core Configuration Parameters
 
 ### Context Window Configuration
