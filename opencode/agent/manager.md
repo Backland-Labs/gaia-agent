@@ -2,7 +2,6 @@
 description: Manages the feature development process
 mode: primary
 model: anthropic/claude-opus-4-1-20250805
-temperature: 0.1
 tools:
   write: true
   edit: false
