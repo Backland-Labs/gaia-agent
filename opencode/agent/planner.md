@@ -260,8 +260,8 @@ After structure approval:
 
 ## References
 
-- Original ticket: `thoughts/allison/tickets/eng_XXXX.md`
-- Related research: `thoughts/shared/research/[relevant].md`
+- Original ticket: `eng_XXXX.md`
+- Related research: relevant fils
 - Similar implementation: `[file:line]`
 ```
 
@@ -270,7 +270,7 @@ After structure approval:
 1. **Present the draft plan location**:
    ```
    I've created the initial implementation plan at:
-   `thoughts/shared/plans/[filename].md`
+   `plan.md`
 
    Please review it and let me know:
    - Are the phases properly scoped?
