@@ -1,0 +1,27 @@
+Traceback (most recent call last):
+  File "/Users/max/code/gaiaai-specs/gaianet-chatbot/backend/app.py", line 235, in <module>
+    gaia_client = SecureGaiaClient()
+  File "/Users/max/code/gaiaai-specs/gaianet-chatbot/backend/app.py", line 202, in __init__
+    self.client = openai.OpenAI(base_url=self.base_url, api_key=self.api_key)
+                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/max/code/gaiaai-specs/gaianet-chatbot/venv/lib/python3.13/site-packages/openai/_client.py", line 107, in __init__
+    super().__init__(
+    ~~~~~~~~~~~~~~~~^
+        version=__version__,
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+        _strict_response_validation=_strict_response_validation,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/max/code/gaiaai-specs/gaianet-chatbot/venv/lib/python3.13/site-packages/openai/_base_client.py", line 746, in __init__
+    self._client = http_client or httpx.Client(
+                                  ~~~~~~~~~~~~^
+        base_url=base_url,
+        ^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        limits=limits,
+        ^^^^^^^^^^^^^^
+    )
+    ^
+TypeError: Client.__init__() got an unexpected keyword argument 'proxies'
