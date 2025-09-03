@@ -16,7 +16,7 @@ GaiaNet is a decentralized AI platform that enables the deployment and orchestra
 
 ## Repository Structure
 
-- `/docs` - Documentation and specifications for agent development
+- `/opencode` - Opencode agents for agentic development
 - `/specs` - Technical specifications and protocols
 - Agent implementation patterns and examples
 
