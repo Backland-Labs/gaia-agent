@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GaiaNet Chatbot Test Interface</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .chat-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .chat-messages {
+            height: 400px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: #fafafa;
+        }
+        .message {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 6px;
+        }
+        .user-message {
+            background-color: #e3f2fd;
+            margin-left: 50px;
+        }
+        .assistant-message {
+            background-color: #f3e5f5;
+            margin-right: 50px;
+        }
+        .input-area {
+            display: flex;
+            gap: 10px;
+        }
+        #messageInput {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        #sendButton {
+            padding: 12px 24px;
+            background-color: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        #sendButton:hover {
+            background-color: #1976d2;
+        }
+        #sendButton:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .status {
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .status.connected {
+            background-color: #e8f5e8;
+            color: #2e7d32;
+            border: 1px solid #a5d6a7;
+        }
+        .status.disconnected {
+            background-color: #ffebee;
+            color: #c62828;
+            border: 1px solid #ef9a9a;
+        }
+        .test-controls {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+        }
+        .test-button {
+            margin: 5px;
+            padding: 8px 16px;
+            background-color: #ff9800;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <h1>🌍 GaiaNet Chatbot Test Interface</h1>
+        <p>This is a test interface to simulate the GaiaNet chatbot functionality.</p>
+        
+        <div id="backendStatus" class="status disconnected">
+            Backend Status: Simulated (Backend not running)
+        </div>
+        
+        <div class="chat-messages" id="chatMessages">
+            <div class="message assistant-message">
+                <strong>Assistant:</strong> Hello! I'm the GaiaNet chatbot. This is a test interface to simulate chat functionality. The actual backend integration would connect to GaiaNet nodes for AI responses.
+            </div>
+        </div>
+        
+        <div class="input-area">
+            <input type="text" id="messageInput" placeholder="Ask me anything..." />
+            <button id="sendButton">Send</button>
+        </div>
+        
+        <div class="test-controls">
+            <h3>Functional Test Controls</h3>
+            <button class="test-button" onclick="testXSSPrevention()">Test XSS Prevention</button>
+            <button class="test-button" onclick="testRateLimiting()">Test Rate Limiting</button>
+            <button class="test-button" onclick="testStreamingResponse()">Test Streaming</button>
+            <button class="test-button" onclick="testErrorHandling()">Test Error Handling</button>
+            <button class="test-button" onclick="clearChat()">Clear Chat</button>
+        </div>
+    </div>
+
+    <script>
+        let messageCount = 0;
+        let rateLimitCount = 0;
+        
+        // DOM elements
+        const chatMessages = document.getElementById('chatMessages');
+        const messageInput = document.getElementById('messageInput');
+        const sendButton = document.getElementById('sendButton');
+        const backendStatus = document.getElementById('backendStatus');
+        
+        // Simulate backend connectivity check
+        function checkBackendStatus() {
+            // In real implementation, this would call /api/health
+            setTimeout(() => {
+                if (Math.random() > 0.3) {
+                    backendStatus.className = 'status connected';
+                    backendStatus.textContent = 'Backend Status: Healthy (Simulated)';
+                } else {
+                    backendStatus.className = 'status disconnected';
+                    backendStatus.textContent = 'Backend Status: Error (Simulated)';
+                }
+            }, 1000);
+        }
+        
+        // Add message to chat
+        function addMessage(sender, content, isHtml = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            
+            if (isHtml) {
+                messageDiv.innerHTML = `<strong>${sender.charAt(0).toUpperCase() + sender.slice(1)}:</strong> ${content}`;
+            } else {
+                messageDiv.innerHTML = `<strong>${sender.charAt(0).toUpperCase() + sender.slice(1)}:</strong> ${escapeHtml(content)}`;
+            }
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        // Escape HTML to prevent XSS
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        // Simulate API call to backend
+        function simulateBackendCall(message) {
+            return new Promise((resolve, reject) => {
+                // Simulate network delay
+                setTimeout(() => {
+                    messageCount++;
+                    
+                    // Simulate rate limiting
+                    if (rateLimitCount >= 5) {
+                        reject(new Error('Rate limit exceeded. Please wait before sending another message.'));
+                        return;
+                    }
+                    
+                    // Simulate different responses based on input
+                    if (message.toLowerCase().includes('error')) {
+                        reject(new Error('Simulated backend error for testing'));
+                        return;
+                    }
+                    
+                    if (message.toLowerCase().includes('stream')) {
+                        // Simulate streaming response
+                        resolve({
+                            response: `Streaming response to: "${message}". This simulates how the real GaiaNet integration would stream AI responses.`,
+                            streaming: true
+                        });
+                        return;
+                    }
+                    
+                    // Normal response
+                    const responses = [
+                        `I received your message: "${message}". In the real implementation, this would be processed by a GaiaNet node for AI responses.`,
+                        `Thank you for testing the chatbot with: "${message}". The actual backend would connect to decentralized AI nodes.`,
+                        `Your message "${message}" has been processed. This is a simulated response for testing purposes.`
+                    ];
+                    
+                    resolve({
+                        response: responses[Math.floor(Math.random() * responses.length)],
+                        streaming: false
+                    });
+                }, Math.random() * 1000 + 500);
+            });
+        }
+        
+        // Send message
+        async function sendMessage() {
+            const message = messageInput.value.trim();
+            if (!message) return;
+            
+            // Add user message
+            addMessage('user', message);
+            messageInput.value = '';
+            
+            // Disable send button
+            sendButton.disabled = true;
+            sendButton.textContent = 'Sending...';
+            
+            rateLimitCount++;
+            
+            try {
+                const result = await simulateBackendCall(message);
+                
+                if (result.streaming) {
+                    // Simulate streaming response
+                    addMessage('assistant', '');
+                    const lastMessage = chatMessages.lastElementChild;
+                    const words = result.response.split(' ');
+                    
+                    for (let i = 0; i < words.length; i++) {
+                        setTimeout(() => {
+                            const currentText = lastMessage.innerHTML.split('</strong> ')[1] || '';
+                            lastMessage.innerHTML = `<strong>Assistant:</strong> ${currentText}${words[i]} `;
+                            chatMessages.scrollTop = chatMessages.scrollHeight;
+                        }, i * 100);
+                    }
+                } else {
+                    addMessage('assistant', result.response);
+                }
+            } catch (error) {
+                addMessage('assistant', `Error: ${error.message}`, true);
+            }
+            
+            // Reset send button
+            sendButton.disabled = false;
+            sendButton.textContent = 'Send';
+            
+            // Reset rate limit after 10 seconds
+            setTimeout(() => {
+                if (rateLimitCount > 0) rateLimitCount--;
+            }, 10000);
+        }
+        
+        // Test functions
+        function testXSSPrevention() {
+            const xssPayload = '<script>alert("XSS Test")</script>Hello';
+            messageInput.value = xssPayload;
+            addMessage('system', 'Testing XSS prevention with malicious script payload. The system should sanitize this input.');
+            sendMessage();
+        }
+        
+        function testRateLimiting() {
+            addMessage('system', 'Testing rate limiting by sending multiple rapid requests...');
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    messageInput.value = `Rate limit test message ${i + 1}`;
+                    sendMessage();
+                }, i * 200);
+            }
+        }
+        
+        function testStreamingResponse() {
+            messageInput.value = 'This is a streaming response test';
+            addMessage('system', 'Testing streaming response functionality...');
+            sendMessage();
+        }
+        
+        function testErrorHandling() {
+            messageInput.value = 'error test trigger';
+            addMessage('system', 'Testing error handling with backend error simulation...');
+            sendMessage();
+        }
+        
+        function clearChat() {
+            chatMessages.innerHTML = '<div class="message assistant-message"><strong>Assistant:</strong> Chat cleared. Ready for new tests!</div>';
+            messageCount = 0;
+            rateLimitCount = 0;
+        }
+        
+        // Event listeners
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !sendButton.disabled) {
+                sendMessage();
+            }
+        });
+        
+        sendButton.addEventListener('click', sendMessage);
+        
+        // Initialize
+        checkBackendStatus();
+        setInterval(checkBackendStatus, 30000); // Check every 30 seconds
+    </script>
+</body>
+</html>
